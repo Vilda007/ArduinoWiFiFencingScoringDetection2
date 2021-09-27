@@ -1,3 +1,15 @@
+/*
+  Arduino based Fencing Scoring detection
+  https://github.com/Vilda007/ArduinoWiFiFencingScoringDetection2
+  CLIENT (PORT)
+
+  This code has been heavily inspired by the examples you can find at
+  https://www.arduino.cc/en/Tutorial/HomePage
+
+  Board:
+  ESP8266 Board --> LOLIN(WEMOS) D1 R2 & mini
+  ESP8266 Board --> NodeMCU 1.0 (ESP-12E Module)
+*/
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
 
@@ -40,6 +52,17 @@ void setup() {
 	Serial.begin(115200);
 	delay(20);
 
+  // initialize the LED pins as an output:
+  pinMode(GreenLED, OUTPUT);
+  digitalWrite(GreenLED, HIGH);
+  pinMode(YellowLED, OUTPUT);
+  digitalWrite(YellowLED, HIGH);
+  pinMode(RedLED, OUTPUT);
+  digitalWrite(RedLED, LOW);
+
+  // initialize the pushbutton pin as an input:
+  pinMode(Hit, INPUT);
+
 	// connects to access point
 	WiFi.mode(WIFI_STA);
 	WiFi.begin(SSID, PASSWORD);
@@ -47,6 +70,8 @@ void setup() {
 		Serial.print('.');
 		delay(500);
 	}
+  digitalWrite(GreenLED, LOW);
+  digitalWrite(RedLED, HIGH);
 
 	AsyncClient* client = new AsyncClient;
 	client->onData(&handleData, client);
@@ -58,5 +83,27 @@ void setup() {
 }
 
 void loop() {
+//LED Test START
+/*
+digitalWrite(GreenLED, HIGH);
+delay(500);
+digitalWrite(YellowLED, HIGH);
+delay(500);
+digitalWrite(RedLED, HIGH);
+delay(500);
+digitalWrite(GreenLED, LOW);
+delay(500);
+digitalWrite(YellowLED, LOW);
+delay(500);
+digitalWrite(RedLED, LOW);
+delay(500);
+//LED TEST END
+*/
 
+if (digitalRead(Hit) == HIGH) {; //Hit!
+    digitalWrite(YellowLED, LOW);
+    delay(500);
+    digitalWrite(YellowLED, HIGH);
+  }
+  
 }
