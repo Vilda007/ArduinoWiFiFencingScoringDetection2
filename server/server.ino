@@ -1,3 +1,13 @@
+/*
+  Arduino based Fencing Scoring detection
+  https://github.com/Vilda007/ArduinoWiFiFencingScoringDetection2
+
+  This code has been heavily inspired by the examples you can find at
+  https://www.arduino.cc/en/Tutorial/HomePage
+
+  Board: ESP8266 Board --> LOLIN(WEMOS) D1 R2 & mini
+*/
+
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
 #include <DNSServer.h>
